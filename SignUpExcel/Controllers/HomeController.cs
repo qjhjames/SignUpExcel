@@ -17,14 +17,6 @@ namespace SignUpExcel.Controllers
 
         public IActionResult Index()
         {
-    /*        string web_path = _webHostEnvironment.WebRootPath;
-            ExcuteMsg excuteMsg = new ExcuteMsg();
-            InputInfo info = new InputInfo();
-            info.StudentFemale = 10;
-            info.StudentMale = 3;
-            info.TeacherMale = 2;
-            info.TeacherFemale = 5;
-            excuteMsg.addExcelData(web_path+"/excelFiles/", info);*/
             return View();
         }
         [HttpGet]
