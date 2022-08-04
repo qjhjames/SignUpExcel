@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model InputInfo
+<div class="text-center">
+    <h1 class="display-4">欢迎使用研学报名信息预生成系统</h1>
+   
+    <p>说明： <a href="https://docs.microsoft.com/aspnet/core">仅用于精确名单未到，只有人数信息时，生成临时Excel导入表供系统分配宿舍</a>.</p>
+    <div class="row">
+      <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                 <label asp-for="StudentMale"></label>
+                <input asp-for="StudentMale" class="form-control"  id="StudentMaleip" value="0"/>
+                <span asp-validation-for="StudentMale" class="text-danger"></span>
+               <label asp-for="StudentFemale"></label>
+                <input asp-for="StudentFemale" class="form-control"  id="StudentFemaleip" value="0"/>
+                <span asp-validation-for="StudentFemale" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="border-bottom:20px">
+                <label asp-for="TeacherMale"></label>
+                <input asp-for="TeacherMale" class="form-control" id="TeacherMaleip" value="0"/>
+                <span asp-validation-for="TeacherMale" class="text-danger"></span>
+                <label asp-for="TeacherFemale"></label>
+                <input asp-for="TeacherFemale" class="form-control" id="TeacherFemaleip" value="0"/>
+                <span asp-validation-for="TeacherFemale" class="text-danger"></span>
+            </div>
+           
+      </div>
+      <div class="col-md-3"></div>
+      </div>
+      <div class="row" style="margin-top:20px">
+          <div class="col-md-5"></div>
+          <div class="col-md-2">
+           <button class="btn btn-primary submit"> 预生成报名名单</button>
+           </div>
+           <div class="col-md-5"></div>
+      </div>
+</div>
+@section Scripts{ 
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(".submit").click(function() { 
+                    var stum = $("#StudentMaleip").val();
+                    var stufm = $("#StudentFemaleip").val();
+                    var team = $("#TeacherMaleip").val();
+                    var teafm = $("#TeacherFemaleip").val();
+                    if (stum < 0 || stufm < 0 || team < 0 || teafm < 0) {
+                        alert("人数不能小于0");
+                        return;
+                    }
+                    if (stum == 0 && stufm == 0 && team == 0  && teafm == 0) {
+                        alert("请输入人数");
+                        return;
+                    }
+                  $.ajax({  
+                    type : "GET",  
+                    url : "/Input/InputNum?StudentMale="+stum+"&StudentFemale="+stufm+"&TeacherMale="+team+"&TeacherFemale="+teafm,
+  
+                    success : function(data) {//返回数据根据结果进行相应的处理  
+                        if ( data=="success") {  
+                            alert("生成成功，请至新打开的页面下载");
+                            window.open("http://172.16.188.92:6600/excelFiles");
+                        } else {  
+                          alert("出错了");
+                        }  
+                    }  
+                });  
+                })
+            });
+        </script>
+     }
