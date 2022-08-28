@@ -1,0 +1,76 @@
+﻿@{
+    ViewData["Title"] = "国防报名";
+}
+<div class="text-center">
+    <h1 class="display-4">欢迎使用国防报名信息预生成系统</h1>
+   
+    <p>说明： <a href="https://docs.microsoft.com/aspnet/core">仅用于精确名单未到，只有人数信息时，生成临时Excel导入表供系统分配宿舍</a>.</p>
+    <div class="row">
+      <div class="col-md-5"></div>
+    <div class="col-md-2">
+            
+              <label>请输入班级数：</label>
+                <input class="form-control"  id="classnum" value="0"/>      </div>
+      <div class="col-md-5"></div>
+      </div>
+      <div class="row" style="margin-top:20px">
+          <div class="col-md-5"></div>
+          <div class="col-md-2">
+           <button class="btn btn-primary submit"> 确认</button>
+           </div>
+           <div class="col-md-5"></div>
+      </div>
+
+       <div class="row" style="margin-top:20px">
+          <div class="col-md-1"></div>
+          <div class="col-md-10" id="htmladd">
+          
+           </div>
+           <div class="col-md-1"></div>
+      </div>
+      <div class='row' style='margin-top:20px;display:none' id="hiderow"><div class='col-md-4'></div><div class='col-md-4'><button class='btn btn-primary yushengcheng'> 预生成报名名单</button></div> <div class='col-md-4'></div></div>
+</div>
+@section Scripts{ 
+        <script type="text/javascript">
+            $(document).ready(function () {
+              
+                $(".submit").click(function() { 
+                     var htmltoadd = '';
+                    var num = $("#classnum").val();
+                    for (var i = 0; i < num; i++) {
+                        htmltoadd += " <label>班级名称：</label><input  class='tag' value=''/><input style='display:none'  class='tag' value='m'/><label>男生数：</label><input  class='tag' value='0'/><input style='display:none'  class='tag' value='m'/><label>女生数：</label><input  class='tag' value='0'/><input style='display:none'  class='tag' value='u'/><br/>";
+                    }
+                    htmltoadd += "<label>男教师数：</label><input  class='teamalenum' value='0'/><label>女教师数：</label><input  class='teafemalenum' value='0'/><br/>";
+                    htmltoadd += "";
+         
+                    $("#htmladd").html(htmltoadd);
+                    $("#hiderow").show();
+                })
+                $(".yushengcheng").click(function() {
+                    var myval = '';
+                    $(".tag").each(function() {
+                        myval += $(this).val();
+                    });
+                     var team = $(".teamalenum").val();
+                    var teafm = $(".teafemalenum").val();
+                   
+           
+                    $.ajax({  
+                    type : "GET",  
+                    url : "/Input/InputGuofang?ClassStu="+myval+"&TeacherMale="+team+"&TeacherFemale="+teafm,
+  
+                    success : function(data) {//返回数据根据结果进行相应的处理  
+                        if ( data=="success") {  
+                            alert("生成成功，请至新打开的页面下载");
+                            window.open("http://172.16.188.92:6600/excelFiles");
+                        } else {  
+                          alert("出错了");
+                        }  
+                    }  
+                });  
+                })
+               
+            });
+            
+        </script>
+     }
