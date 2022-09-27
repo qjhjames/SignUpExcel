@@ -19,4 +19,8 @@
     <Folder Include="wwwroot\excelFiles\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\css\2874a8999e5958d08705fa6bbb4f9c7c.mp4" />
+  </ItemGroup>
+
 </Project>

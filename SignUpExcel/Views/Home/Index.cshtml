@@ -2,8 +2,11 @@
     ViewData["Title"] = "Home Page";
 }
 @model InputInfo
-<div class="text-center">
-    <h1 class="display-4">欢迎使用研学报名信息预生成系统</h1>
+
+
+<div class="text-center" style="color:white">
+    
+    <h1 class="display-4" style="font-weight:800">欢迎使用研学报名信息预生成系统</h1>
    
     <p>说明： <a href="https://docs.microsoft.com/aspnet/core">仅用于精确名单未到，只有人数信息时，生成临时Excel导入表供系统分配宿舍</a>.</p>
     <div class="row">
@@ -41,6 +44,7 @@
 @section Scripts{ 
         <script type="text/javascript">
             $(document).ready(function () {
+
                 $(".submit").click(function() { 
                     var stum = $("#StudentMaleip").val();
                     var stufm = $("#StudentFemaleip").val();
